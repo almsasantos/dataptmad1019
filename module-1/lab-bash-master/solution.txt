@@ -1,0 +1,47 @@
+Exercises:
+1. echo Hello World
+2. mkdir new_dir
+3. rm r-new_dir
+4. cp -r lorem/sed.txt lorem-copy/sed.txt
+5. cp -r lorem/at.txt lorem-copy/at.txt; cp -r lorem/lorem.txt lorem-copy/lorem.txt
+6. cd lorem; cat sed.txt
+7. To opening both files we could use the command 'cd lorem; cat at.txt; cat lorem.txt'. But to have a better view of the content inside each file we might use the following command "cd lorem; cat at.txt; echo -e '\n'; cat lorem.txt"
+8. cd lorem-copy; head -n3 sed.txt
+9. cd lorem-copy; tail -n3 sed.txt
+10. There are two different ways of doing this task. First way: 'cd lorem-copy; echo "Homo homini lupus." >> sed.txt' Second way 'cd lorem-copy; nano sed.txt (and then add the text at the end)
+11. cd lorem-copy; tail -n3 sed.txt
+12. sed 's/et/ET/g' at.txt
+13. echo $USER
+14. pwd
+15. ls *.txt
+16. wc -l sed.txt
+17. Once we go back to the 'lab-bash-master' folder, type 'ls lorem | wc -l' to get the correct solution
+18. cd lorem; grep et at.txt
+19. cd lorem; grep -w et at.txt
+20. cd ..; grep -d recurse et *
+
+Bash Files:
+After using the following command 'nano list_files.sh' to create the file list_files.sh, write 'ls' inside of that file using the text editor nano. Once you save the changes and exit that file, write the command 'bash list_files.sh' to execute what's inside of it, and make sure we are in the lab-bash-master directory.
+
+BONUS:
+1. name=ana
+2. echo $name
+3. mkdir $name
+4. rm -r $name
+5. cd lorem
+	i. for file in *; do echo -n $file | wc -c < $file; done
+	ii. for filename in *; do echo -n $filename | wc -c < $filename; done
+	iii. for filename in $ls*
+		do 
+		echo -n $filename ' has '
+		echo -n $filename | wc -c < $filename
+		echo -e ' characters lenght'
+		done
+6.
+	i. Type 'top' in the terminal
+	ii. Type 'pstree' to display a tree of processes. Type 'psgrep' to look up processes based on name and other attributes
+7. Make sure your working directory is 'home/your_username', in my case, 'home/almsasantos' and then type the command 'less /proc/cpuinfo'
+8. To create new alias first make your working directory is 'home/your_username', then write the following commands: 'nano .bashrc' this will open a text editor, make sure you get to the end of the file and then type 'alias <command_you_want_to_create>='<command_already_in_use>'. The new 3 commands I created were: "alias ..='cd ..'"; "alias ....='cd ../..'"; "alias mvuc='cd ../../../..'" To active the previous 3 commands we need to close and re-open the terminal.
+9. tar -zcvf lorem-compressed.tar.gz /home/almsasantos/Desktop/Ironhack/dataptmad1019/module-1/lab-bash-master/lorem /home/almsasantos/Desktop/Ironhack/dataptmad1019/module-1/lab-bash-master/lorem-copy
+10. mkdir lorem-uncompressed; tar xf lorem-compressed.tar.gz -C /home/almsasantos/Desktop/Ironhack/dataptmad1019/module-1/lab-bash-master/lorem-uncompressed
+

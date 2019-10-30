@@ -89,20 +89,20 @@ df = pd.concat(dfs, sort='False', axis=1)
 
 #To see the resulting data frame
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-#      print(df)
-
-print(df[:10])
-#To display the first 10 rows we can also use the program below:
-#print(df.head(10))
+       #print(df)
+print(df.iloc[0:10,: ])
 
 #8. Use a list comprehension to select and print the column numbers for columns from the data set whose median is less than 0.48.
-df.loc[1, 2]
 
+print(df.shape)
 
 #9. Use a list comprehension to add a new column (20) to the data frame whose values are the values in column 19 minus 0.1.
 # Display the top 10 rows of the resulting data frame.
+#First we need to create a list to convert it into a column:
+twenty = [0.123456, 0.654321, 0.123456, 0.654321, 0.123456]
 
-#print(df[:10])
+df['20'] = twenty
+
+print(df.iloc[0:10, : ])
 
 #10. Use a list comprehension to extract and print all values from the data set that are between 0.7 and 0.75.
-

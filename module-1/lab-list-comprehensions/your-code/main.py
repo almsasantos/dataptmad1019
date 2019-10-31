@@ -71,13 +71,6 @@ onlyfiles = [file for file in os.listdir(mypath) if file.endswith('.csv')]
 
 print(onlyfiles)
 
-'''list_c = []
-for file in os.listdir(mypath):
-       if file.endswith('.csv'):
-              list_c.append(file)
-              #print(os.path.join(mypath, file))
-print(list_c)'''
-
 #7. Use a list comprehension and the Pandas read_csv and concat methods to read all CSV files in the /data directory and combine them into a single data frame.
 # Display the top 10 rows of the resulting data frame.
 
@@ -85,16 +78,23 @@ import fnmatch
 csv_files = fnmatch.filter(os.listdir(mypath), '*sample*.csv')
 dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
 
-df = pd.concat(dfs, sort='False', axis=1)
+df = pd.concat(dfs, axis=0)
 
 #To see the resulting data frame
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):
        #print(df)
-print(df.iloc[0:10,: ])
+print(df.iloc[0:10])
 
 #8. Use a list comprehension to select and print the column numbers for columns from the data set whose median is less than 0.48.
+import fnmatch
+csv_files = fnmatch.filter(os.listdir(mypath), '*sample*.csv')
+dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
 
-print(df.shape)
+df = pd.concat(dfs, axis=0)
+
+selected_columns = [col for col in df._get_numeric_data() if df[col].median() < 0.48]
+
+print(selected_columns)
 
 #9. Use a list comprehension to add a new column (20) to the data frame whose values are the values in column 19 minus 0.1.
 # Display the top 10 rows of the resulting data frame.
@@ -103,6 +103,11 @@ twenty = [0.123456, 0.654321, 0.123456, 0.654321, 0.123456]
 
 df['20'] = twenty
 
-print(df.iloc[0:10, : ])
+print(df.iloc[0:10 ])
 
 #10. Use a list comprehension to extract and print all values from the data set that are between 0.7 and 0.75.
+import fnmatch
+csv_files = fnmatch.filter(os.listdir(mypath), '*sample*.csv')
+dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
+
+df = pd.concat(dfs, axis=0)

@@ -87,7 +87,7 @@ print(df.iloc[0:10])
 
 #8. Use a list comprehension to select and print the column numbers for columns from the data set whose median is less than 0.48.
 import fnmatch
-csv_files = fnmatch.filter(os.listdir(mypath), '*sample*.csv')
+csv_files = fnmatch.filter(os.listdir(mypath), '*.csv')
 dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
 
 df = pd.concat(dfs, axis=0)
@@ -99,15 +99,29 @@ print(selected_columns)
 #9. Use a list comprehension to add a new column (20) to the data frame whose values are the values in column 19 minus 0.1.
 # Display the top 10 rows of the resulting data frame.
 #First we need to create a list to convert it into a column:
-twenty = [0.123456, 0.654321, 0.123456, 0.654321, 0.123456]
-
-df['20'] = twenty
-
-print(df.iloc[0:10 ])
-
-#10. Use a list comprehension to extract and print all values from the data set that are between 0.7 and 0.75.
 import fnmatch
-csv_files = fnmatch.filter(os.listdir(mypath), '*sample*.csv')
+csv_files = fnmatch.filter(os.listdir(mypath), '*.csv')
 dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
 
 df = pd.concat(dfs, axis=0)
+
+data = df
+data['20'] = data['19'] - 0.1
+
+print(df[:10])
+
+
+#10. Use a list comprehension to extract and print all values from the data set that are between 0.7 and 0.75.
+import fnmatch
+csv_files = fnmatch.filter(os.listdir(mypath), '*.csv')
+dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
+
+df = pd.concat(dfs, axis=0)
+df.reset_index(inplace=True,drop=True)
+
+lsa = []
+for col in range(20):
+    for row in range(50):
+        if df[str(col)][row] > 0.7 or df[str(col)][row] < 0.75:
+            lsa.append(df)
+print(lsa)

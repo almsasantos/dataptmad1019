@@ -119,10 +119,12 @@ dfs = [pd.read_csv(mypath + os.sep + csv_file) for csv_file in csv_files]
 df = pd.concat(dfs, axis=0)
 df.reset_index(inplace=True, drop=True)
 
-lsa = []
+lsa = [df[str(col)][row] for col in range(20) for row in range(50) if df[str(col)][row] > 0.7 and df[str(col)][row] < 0.75]
+
+'''lsa = []
 for col in range(20):
     for row in range(50):
         if df[str(col)][row] > 0.7 and df[str(col)][row] < 0.75:
-            lsa.append(df[str(col)][row])
+            lsa.append(df[str(col)][row])'''
 
 print(lsa)

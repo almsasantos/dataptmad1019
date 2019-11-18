@@ -55,9 +55,9 @@ ORDER BY TOTAL DESC;
 SELECT authors.au_id AS 'AUTHOR_ID',
 authors.au_lname AS 'LAST_NAME',
 authors.au_fname AS 'FIRST_NAME',
-(titles.advance*titleauthor.royaltyper/100 + titles.ytd_sales*titles.royalty/100*titleauthor.royaltyper/100) AS 'PROFIT'
+((royaltyper/100)*(advance + ytd_sales*royalty)) AS 'PROFIT'
 FROM titles
 JOIN titleauthor ON titles.title_id = titleauthor.title_id
 JOIN authors ON authors.au_id = titleauthor.au_id
-GROUP BY titleauthor.royaltyper
+GROUP BY authors.au_id
 ORDER BY PROFIT DESC LIMIT 3;

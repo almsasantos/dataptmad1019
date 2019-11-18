@@ -9,8 +9,7 @@ print(np.version.version)
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 a = np.random.random([2, 3, 5])
-a = np.random.rand(2,3,5)
-
+a = np.random.rand(2, 3, 5)
 
 #4. Print a.
 print(a)
@@ -34,10 +33,13 @@ else:
 
 
 #8. Are you able to add a and b? Why or why not?
-#TRY EXCEPT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 #If I execute the following command print(a+b) I'll get a ValueError because the arrays a and b have different shapes.
 #To see the shape of each array you can execute the following two commands: print(a.shape) print(b.shape)
-
+try:
+    print(a+b)
+except ValueError:
+    print("It's not possible to add arrays of different shapes.")
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to variable "c".
 #c = np.reshape(2, 3, 5)
@@ -46,7 +48,7 @@ print(c.shape)
 
 
 #10. Try to add a and c. Now it should work. Assign the sum to variable "d". But why does it work now?
-#T here are two ways of adding a and c. First one is using the mathematical plus operator and other one is using a function built in numpy called add().
+#There are two ways of adding a and c. First one is using the mathematical plus operator and other one is using a function built in numpy called add().
 d = np.add(a, c)
 d = a + c
 
@@ -93,27 +95,15 @@ print('Done with exercise 15.')
 #Assign 100 to the corresponding value(s) in f for d_max in d.
 #In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 
-f1 = [[[25 if d_min<item<d_mean else 75 if d_mean<item< d_max else 0 if item == d_min else 100 for item in in_list] for in_list in out_list] for out_list in d]
+f1 = [[[25 if d_min<elem3<d_mean else 75 if d_mean<elem3< d_max else 0 if elem3 == d_min else 100 for elem3 in elem2] for elem2 in elem1] for elem1 in d]
 print(f1)
 
-f_list=[]
-for e1 in d.tolist():
-    f_list.append([])
-    for e2 in e1:
-        for e3 in e2:
-            if e3 > d_min and e3 < d_mean:
-                f_list.append(25)
-            elif e3 > d_mean and e3 < d_max:
-                f_list.append(75)
-            elif e3 == d_mean:
-                f_list.append(50)
-            elif e3 == d_min:
-                f_list.append(0)
-            elif e3 == d_max:
-                f_list.append(100)
-print(f_list)
 f = np.array(f1)
-'''np.where((d > d_min) & (d < d_mean), 25, d)
+
+'''
+I tried to do this same exercise using numpy built-in functions but I couldn't get the full changed array, just value by value.
+I'll leave it below, because I think it'll be interesting for me in the future to come back and find it's solution.
+np.where((d > d_min) & (d < d_mean), 25, d)
 np.where((d > d_mean) & (d < d_max), 75, d)
 np.where(d == d_mean, 50, d)
 np.where(d == d_min, 0, d)
@@ -153,7 +143,13 @@ print(f)
         [ 'D',  'D',  'D',  'D',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])'''
 #Again, you don't need Numpy in this question.
+f2 = [[['A' if elem3 == 0 else 'B' if elem3 == 25 else 'E' if elem3 == 100 else 'D' for elem3 in elem2] for elem2 in elem1] for elem1 in f1]
+print(f'The following list helps us to create the correct array: {f2}')
+new_f_array = np.array(f2)
+print('This is new array full of strings:')
+print(new_f_array)
 
 
 #PEDRO EXERCISE:
-# Why writing this command sum(d[:0]) will return the same result as np.sum(d[:,0])
+# Why writing this command sum(d[:0]) will return the same result as np.sum(d[:0])
+# In my opinion both options work because sum is a built-in function of python, so if we pass an argument to that function it'll execute it.

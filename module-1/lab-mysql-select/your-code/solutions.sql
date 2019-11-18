@@ -11,22 +11,18 @@ JOIN authors ON authors.au_id = titleauthor.au_id;
 
 
 -- CHALLENGE 2
-WITH
-authorpublishers AS
-(
+
 SELECT authors.au_id AS 'AUTHOR_ID',
 authors.au_lname AS 'LAST_NAME',
 authors.au_fname AS 'FIRST_NAME',
 titles.title AS 'TITLE',
-publishers.pub_name AS 'PUBLISHER'
+publishers.pub_name AS 'PUBLISHER',
+COUNT(titles.title_id) AS 'TITLE_COUNT',
+SUM(COUNT(titles.title_id)) OVER() AS 'TOTAL_COUNT'
 FROM titles
 JOIN publishers ON publishers.pub_id = titles.pub_id
 JOIN titleauthor ON titleauthor.title_id = titles.title_id
 JOIN authors ON authors.au_id = titleauthor.au_id
-)
-SELECT *, 
-COUNT(*) AS 'TITLE_COUNT'
-FROM authorpublishers
 GROUP BY AUTHOR_ID
 ORDER BY AUTHOR_ID DESC;
 
@@ -59,7 +55,7 @@ ORDER BY TOTAL DESC;
 SELECT authors.au_id AS 'AUTHOR_ID',
 authors.au_lname AS 'LAST_NAME',
 authors.au_fname AS 'FIRST_NAME',
-(titles.advance + (titles.price * titles.ytd_sales *(titleauthor.royaltyper/100))) AS 'PROFIT'
+(titles.advance*titleauthor.royaltyper/100 + titles.ytd_sales*titles.royalty/100*titleauthor.royaltyper/100) AS 'PROFIT'
 FROM titles
 JOIN titleauthor ON titles.title_id = titleauthor.title_id
 JOIN authors ON authors.au_id = titleauthor.au_id

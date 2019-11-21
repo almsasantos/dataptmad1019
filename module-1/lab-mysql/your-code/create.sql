@@ -55,17 +55,17 @@ I created a database by entering the following commands in the terminal:
 */
 
 CREATE TABLE IF NOT EXISTS cars (
-ID INTEGER,
-vehicle_identification_number INT, 
+ID INT PRIMARY KEY AUTOINCREMENT,
+vehicle_identification_number INT PRIMARY KEY, 
 manufacturer VARCHAR(20), 
 model VARCHAR(20), 
 year YEAR NOT NULL, 
-color VARCHAR(10),
-PRIMARY KEY (ID, vehicle_identification_number));
+color VARCHAR(10)
+);
 
 CREATE TABLE IF NOT EXISTS customers (
-ID INTEGER,
-customer_id INT,
+ID INT PRIMARY KEY AUTOINCREMENT,
+customer_id INT PRIMARY KEY,
 name VARCHAR(20),
 phone_number NUMERIC,
 email VARCHAR(30),
@@ -73,30 +73,29 @@ address VARCHAR(30),
 city VARCHAR(20),
 state VARCHAR(20),
 country VARCHAR(15),
-postal_code NUMERIC,
-PRIMARY KEY (ID, customer_id));
+postal_code NUMERIC
+);
 
 CREATE TABLE IF NOT EXISTS salespersons(
-ID INTEGER,
-staff_id INT,
+ID INT PRIMARY KEY AUTOINCREMENT,
+staff_id INT PRIMARY KEY,
 name VARCHAR(20),
-store VARCHAR(20),
-PRIMARY KEY (ID, staff_id));
+store VARCHAR(20)
+);
 
 CREATE TABLE IF NOT EXISTS invoices(
-ID INTEGER,
-invoice_number TEXT,
+ID INT PRIMARY KEY AUTOINCREMENT,
+invoice_number TEXT PRIMARY KEY,
 invoice_date TEXT,
 vehicle_identification_number INT,
 customer_id INT,
 staff_id INT,
-PRIMARY KEY(ID, invoice_number),
 FOREIGN KEY(vehicle_identification_number) REFERENCES cars(vehicle_identification_number),
 FOREIGN KEY(customer_id) REFERENCES customers(customer_id),
 FOREIGN KEY(staff_id) REFERENCES salespersons(staff_id)
 );
 
-DROP TABLE cars;
-DROP TABLE customers;
-DROP TABLE salespersons;
+DROP TABLE IF EXISTS cars;
+DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS salespersons;
 DROP TABLE IF EXISTS invoices;

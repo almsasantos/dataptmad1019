@@ -55,16 +55,16 @@ I created a database by entering the following commands in the terminal:
 */
 
 CREATE TABLE IF NOT EXISTS cars (
-ID INTEGER PRIMARY KEY AUTOINCREMENT,
+ID INTEGER,
 vehicle_identification_number INT, 
 manufacturer VARCHAR(20), 
 model VARCHAR(20), 
 year YEAR NOT NULL, 
-color VARCHAR(10)
-);
+color VARCHAR(10),
+PRIMARY KEY (ID, vehicle_identification_number));
 
 CREATE TABLE IF NOT EXISTS customers (
-ID INTEGER PRIMARY KEY AUTOINCREMENT,
+ID INTEGER,
 customer_id INT,
 name VARCHAR(20),
 phone_number NUMERIC,
@@ -73,23 +73,24 @@ address VARCHAR(30),
 city VARCHAR(20),
 state VARCHAR(20),
 country VARCHAR(15),
-postal_code NUMERIC
-);
+postal_code NUMERIC,
+PRIMARY KEY (ID, customer_id));
 
 CREATE TABLE IF NOT EXISTS salespersons(
-ID INTEGER PRIMARY KEY AUTOINCREMENT,
+ID INTEGER,
 staff_id INT,
 name VARCHAR(20),
-store VARCHAR(20)
-);
+store VARCHAR(20),
+PRIMARY KEY (ID, staff_id));
 
 CREATE TABLE IF NOT EXISTS invoices(
-ID INTEGER PRIMARY KEY AUTOINCREMENT,
+ID INTEGER,
 invoice_number TEXT,
 invoice_date TEXT,
 vehicle_identification_number INT,
 customer_id INT,
 staff_id INT,
+PRIMARY KEY(ID, invoice_number),
 FOREIGN KEY(vehicle_identification_number) REFERENCES cars(vehicle_identification_number),
 FOREIGN KEY(customer_id) REFERENCES customers(customer_id),
 FOREIGN KEY(staff_id) REFERENCES salespersons(staff_id)

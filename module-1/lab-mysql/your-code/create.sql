@@ -1,21 +1,21 @@
 /* Challenge 1 - Design the Database 
 
 1. What entities and attributes should be included in the database?
-Since we want to build a database for a dealership company, it's important to have all the following entities: 
+Since we want to build a database for a dealership company, it's important to have all of the following entities: 
 - cars (which we'll have all information about the product that the company is selling);
 - customers (which we'll have all information about the people who are willing to buy those products);
 - salespersons (which we'll have all information about the employee who is selling that product);
 - invoices (which we'll have all information about the process of buying the product).
 
-To get all the main information about which entity, it's important to have a bunch of attributes who are able to define each one specifically:
+To get all the main information about each entity, it's important to have a bunch of attributes who are able to define each one specifically:
 - cars:
-	-> vehicle_identification_number (data type: Primary Key, because it's an unique number used to identify each vehicle)
+	-> vehicle_identification_number (data type: INTEGER PRIMARY KEY NOT NULL, because it's an unique number used to identify each vehicle)
 	-> manufacturer (data type: TEXT, because it's the name of the manufacturer who produced the car)
-	-> model (data type: TEXT NOT NULL)
-	-> year (data type: INTEGER, it'll say the year which the car was produced)
+	-> model (data type: TEXT)
+	-> year (data type: DATE NOT NULL, it'll say the year each car was produced)
 	-> color (data type: TEXT)
 - customers:
-	-> customer_id (data type: Primary Key, because each customer has an unique number)
+	-> customer_id (data type: INTEGER PRIMARY KEY NOT NULL, because each customer has an unique number)
 	-> name (data type: TEXT NOT NULL)
 	-> phone_number (data type: NUMERIC)
 	-> email (data type: TEXT)
@@ -25,23 +25,24 @@ To get all the main information about which entity, it's important to have a bun
 	-> country (data type: TEXT)
 	-> postal_code (data type: NUMERIC)
 - salespersons:
-	-> staff_id (data type: Primary Key, because each employee is identified by an unique number)
+	-> staff_id (data type: INTEGER NOT NULL PRIMARY KEY, because each employee is identified by an unique number)
 	-> salesperson_name (data type: TEXT)
 	-> store (data type: TEXT)
 - invoices:
-	-> invoice_number (data type: Primary Key, because each purchase is identified by a different number)
+	-> invoice_number (data type: INTEGER PRIMARY KEY NOT NULL, because each purchase is identified by a different number)
 	-> date (data type: NUMERIC DATE)
 	-> vehicle_identification_number (data type: Foreign Key from the cars column)
 	-> customer_id (data type: Foreign Key from the customers column)
 	-> staff_id (data type: Foreign Key from the salespersons column)
 	
 2. What are the relations between these entities? Which relations are one-to-one vs one-to-many vs many-to-many?
-
+customers and invoices have a one-to-many relationship because one customer can do multiple invoices
+salespersons and invoices have a one-to-many relationship because each invoice can only be done from an employee, but the same employee can do multiple invoices
+cars and invoices have a many-to-many relationship
 
 
 3. How can you use foreign keys to normalize your database design?
-The only table which will have foreign keys is the invoices one, because it's the one that relates all of the three columns before
-(cars, customers and salespersons).
+The only table which will have foreign keys is the invoices one, because it's the only table that relates to all of the three tables (cars, customers and salespersons).
 
 
 Challenge 2 - Create the database and tables 
@@ -52,20 +53,22 @@ I created a database by entering the following commands in the terminal:
 	Write .quit to get out from the prompt of sqlite
 3.º Write the command sqlite3 lab_mysql.db .dump > lab_mysql.sql
 4.º Write the command sqlite3 lab_mysql.db < lab_mysql.sql to finally create the database and have it functioning on the DBeaver
-*/
+
+NOTE: I know all IDs should be AUTOINCREMENT, I tried to use it and I couldn't make it work,
+but I found its reason on internet. */
 
 CREATE TABLE IF NOT EXISTS cars (
-ID INT PRIMARY KEY AUTOINCREMENT,
-vehicle_identification_number INT PRIMARY KEY, 
+ID INTEGER,
+vehicle_identification_number INTEGER,
 manufacturer VARCHAR(20), 
 model VARCHAR(20), 
-year YEAR NOT NULL, 
-color VARCHAR(10)
-);
+year TEXT, 
+color VARCHAR(10),
+PRIMARY KEY(ID, vehicle_identification_number));
 
 CREATE TABLE IF NOT EXISTS customers (
-ID INT PRIMARY KEY AUTOINCREMENT,
-customer_id INT PRIMARY KEY,
+ID INT,
+customer_id TEXT,
 name VARCHAR(20),
 phone_number NUMERIC,
 email VARCHAR(30),
@@ -73,23 +76,24 @@ address VARCHAR(30),
 city VARCHAR(20),
 state VARCHAR(20),
 country VARCHAR(15),
-postal_code NUMERIC
-);
+postal_code NUMERIC,
+PRIMARY KEY (ID, customer_id));
 
 CREATE TABLE IF NOT EXISTS salespersons(
-ID INT PRIMARY KEY AUTOINCREMENT,
-staff_id INT PRIMARY KEY,
+ID INT,
+staff_id INT,
 name VARCHAR(20),
-store VARCHAR(20)
-);
+store VARCHAR(20),
+PRIMARY KEY (ID, staff_id));
 
 CREATE TABLE IF NOT EXISTS invoices(
-ID INT PRIMARY KEY AUTOINCREMENT,
-invoice_number TEXT PRIMARY KEY,
+ID INT,
+invoice_number TEXT,
 invoice_date TEXT,
 vehicle_identification_number INT,
 customer_id INT,
 staff_id INT,
+PRIMARY KEY (ID, invoice_number),
 FOREIGN KEY(vehicle_identification_number) REFERENCES cars(vehicle_identification_number),
 FOREIGN KEY(customer_id) REFERENCES customers(customer_id),
 FOREIGN KEY(staff_id) REFERENCES salespersons(staff_id)

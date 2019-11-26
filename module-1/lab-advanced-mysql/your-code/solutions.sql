@@ -18,7 +18,7 @@ WITH royalties_per_sales_per_author AS (
 SELECT
 	titles.title_id,
 	authors.au_id,
-	titles.price*sales.qty*titles.royalty / 100 * titleauthor.royaltyper / 100 AS sales_royalty
+	(titles.price * sales.qty * titles.royalty / 100 * titleauthor.royaltyper / 100 ) AS sales_royalty
 FROM
 	authors
 JOIN titleauthor ON
@@ -30,7 +30,7 @@ JOIN sales ON
 SELECT
 	royalties_per_sales_per_author.title_id,
 	royalties_per_sales_per_author.au_id,
-	SUM(sales_royalty) AS titles_royalty
+	SUM(royalties_per_sales_per_author.sales_royalty) AS titles_royalty
 FROM
 	royalties_per_sales_per_author
 JOIN titles ON
@@ -38,8 +38,8 @@ JOIN titles ON
 JOIN titleauthor ON
 	royalties_per_sales_per_author.au_id = titleauthor.au_id
 GROUP BY
-	titleauthor.au_id,
-	titles.title_id;
+	royalties_per_sales_per_author.au_id,
+	royalties_per_sales_per_author.title_id;
 
 /* Step 3: Calculate the total profits of each author */
 WITH royalties_per_sales_per_author AS (
@@ -151,7 +151,7 @@ GROUP BY
 	titles.title_id)
 SELECT
 	tot_royalties_tit_author.au_id,
-	tot_royalties_tit_author.titles_royalty + titles.advance*titleauthor.royaltyper / 100 AS total_profit
+	tot_royalties_tit_author.titles_royalty + titles.advance*titleauthor.royaltyper / 100 AS profits
 FROM
 	tot_royalties_tit_author
 JOIN titles ON
@@ -159,7 +159,5 @@ JOIN titles ON
 JOIN titleauthor ON
 	tot_royalties_tit_author.au_id = titleauthor.au_id
 ORDER BY
-	total_profit DESC
+	profits DESC
 LIMIT 3;
-
-

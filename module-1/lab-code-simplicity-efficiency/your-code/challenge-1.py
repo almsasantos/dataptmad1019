@@ -19,10 +19,10 @@ def calculator(fst_num, operator, sec_num):
     fst = sec = [0, 1, 2, 3, 4, 5]
     if fst_num in fst and sec_num in sec and operator == 'plus':
         result = fst_num + sec_num
-        print(f'{fst_num} {operator} {sec_num} equals {result}')
+        print(f'{fst_num} + {sec_num} = {result}')
     elif fst_num in fst and sec_num in sec and operator == 'minus':
         result = fst_num - sec_num
-        print(f'{fst_num} {operator} {sec_num} equals {result}')
+        print(f'{fst_num} - {sec_num} = {result}')
     else:
         print("I am not able to answer this question. Check your input.")
 

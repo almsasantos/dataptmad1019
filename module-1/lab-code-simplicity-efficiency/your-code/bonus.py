@@ -33,7 +33,7 @@ class ClimbStairs:
             return 0
 
         # If the current step equals to the total steps, there is only one solution because I've reached the top
-        if i == self.total_steps:
+        elif i == self.total_steps:
             return 1
 
         # If I am still in the middle of the stair, continue calculating
@@ -50,7 +50,7 @@ class ClimbStairs:
     def solve(self):
         return self.calc_solutions(0)
 
-total_steps = input("How many steps in the stair?")
+total_steps = int(input('How many steps in the stair? '))
 new_challenge = ClimbStairs(int(total_steps))
-print('Ways to climb to top: ' + str(new_challenge.solve()))
-print('Total calculations performed: ' + str(new_challenge.get_calculation_count()))
+print(f'Ways to climb to top: {new_challenge.solve()}')
+print(f'Total calculations performed: {new_challenge.get_calculation_count()}')

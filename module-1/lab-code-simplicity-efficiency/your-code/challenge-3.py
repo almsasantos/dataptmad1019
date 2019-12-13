@@ -12,9 +12,12 @@ The following function shows one way to solve the problem but the code is not id
 Refactor the code based on what you have learned about code simplicity and efficiency.
 """
 
-import timeit
+# To measure the time of execution in python we can import the library time as seen below:
 
-code_to_test = '''
+import time
+
+start = time.time()
+
 def my_function(max_length):
     if max_length > 5:
         possibilities = [(x, y, z) for x in range(5, max_length) for y in range(4, max_length) for z in range(3, max_length) if (x * x == y * y + z * z)]
@@ -27,7 +30,8 @@ def my_function(max_length):
         return 'impossible to calculate, maximal length should be greater than 5!'
 
 max_length = int(input('What is the maximal length of the triangle side? Enter a number: '))
-print(f'The longest side possible is {my_function(max_length)}')'''
+print(f'The longest side possible is {my_function(max_length)}')
 
-elapsed_time = timeit.timeit(code_to_test, number=100)/100
-print(elapsed_time)
+end = time.time()
+
+print(f'The total time of execution of this function was {end - start}')

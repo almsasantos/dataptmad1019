@@ -10,22 +10,22 @@ code simplicity and efficiency.
 """
 
 print('Welcome to this calculator!')
-print('It can add and subtract whole numbers from zero to five')
-fst_num = input('Please choose your first number (zero to five): ')
+print('It can add and subtract whole numbers from 1 to 5')
+fst_num = int(input('Please choose your first number (0 to 5): '))
 operator = input('What do you want to do? plus or minus: ').lower()
-sec_num = input('Please choose your second number (zero to five): ')
+sec_num = int(input('Please choose your second number (0 to 5): '))
 
 def calculator(fst_num, operator, sec_num):
+    fst = sec = [1, 2, 3, 4, 5]
     num_dic = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5}
-    for k, v in num_dic.items():
-        if fst_num[k] in num_dic and sec_num[k] in num_dic and operator == 'plus':
-            result = v + v
-            print(f'{fst_num} plus {sec_num} = {result}')
-        elif fst_num in fst and sec_num in sec and operator == 'minus':
-            result = fst_num - sec_num
-            print(f'{fst_num} minus {sec_num} = {result}')
-        else:
-            print("I am not able to answer this question. Check your input.")
+    if fst_num in fst and sec_num in sec and operator == 'plus':
+        result = fst_num + sec_num
+        print(f'{fst_num} + {sec_num} = {result}')
+    elif fst_num in fst and sec_num in sec and operator == 'minus':
+        result = fst_num - sec_num
+        print(f'{fst_num} - {sec_num} = {result}')
+    else:
+        print("I am not able to answer this question. Check your input.")
 
 calculator(fst_num, operator, sec_num)
 

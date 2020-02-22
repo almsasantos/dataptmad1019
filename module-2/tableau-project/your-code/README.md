@@ -14,5 +14,8 @@ You'll a variability of statistics graphs from those three groups and in the fin
 - Open the file 'link_tableau_project.txt' and open the link available.
 - You'll get to the page tableau public where the project is posted.
 
+![coronavirus](https://dam.ngenespanol.com/wp-content/uploads/2020/01/coronavirus.jpg)
+
+
 
 
